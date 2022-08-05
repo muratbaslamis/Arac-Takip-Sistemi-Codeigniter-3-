@@ -165,17 +165,39 @@ Sql Sorguları
 */
 public function sqlsorgulari(){
 
+/*
+- Tamir yerlerine göre ortalama tamire alım süresini (Tamir tarihi ile kayıt girme tarihi arasındaki fark) saat bazında veren SQL’i yazınız.
+*/
+
 $query = $this->db->select("id,tamiryerid, AVG(TIMESTAMPDIFF(HOUR, tarih, tamirtarihi)) as saatler")->from("servisbilgisi")->group_by('tamiryerid')->get()->result_array();
 
 //print_r($query);
 
+
+/*
+- Araç sayılarını, hafta bazında ve araç segmenti (Araç modeli tablosunda tutulmalıdır) bazında veren SQL’i yazınız.
+
+Hafta bazında araç sayısı
+*/
 $query2 = $this->db->select("id,modeladi,aracsegmenti")->from("aracmodelleri")->where('WEEKOFYEAR(tarih) = WEEKOFYEAR(NOW())')->count_all_results();
+
 //print_r($query2);
 
+
+/*
+- Araç sayılarını, hafta bazında ve araç segmenti (Araç modeli tablosunda tutulmalıdır) bazında veren SQL’i yazınız.
+
+Segment bazında araç sayısı
+*/
+
 $query3 = $this->db->select("aracsegmenti, COUNT(aracsegmenti) as segmentsayisi")->from("aracmodelleri")->group_by('aracsegmenti')->get()->result_array();
+
 //print_r($query3);
 
 
+/*
+- Ay bazında, tamir yerlerinin yoğunluğunu veren SQL’i yazınız. Tamir yerleri tablosunda aylık araç bakım kapasitesi alanı olmalıdır.
+*/
 $query4 = $this->db->select("id,tamiryerid, Count(tamiryerid) as servissayisi")->from("servisbilgisi")->where('MONTH(tamirtarihi) = MONTH(CURRENT_DATE())')->group_by('tamiryerid')->get()->result_array();
 
 //print_r($query4);
