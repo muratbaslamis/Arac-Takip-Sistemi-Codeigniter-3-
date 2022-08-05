@@ -6,3 +6,4 @@ Veritabanı Şeması;
 
 https://github.com/muratbaslamis/Arac-Takip-Sistemi-Codeigniter-3-/blob/main/aractakip%20(2).jpg
 
+İstenilen SQL sorguları Anasayfa controllerında sqlsorgulari fonksiyonunda bulunmaktadır.
